@@ -32,3 +32,10 @@ _cgo_export.*
 _testmain.go
 
 *.exe
+
+# per-project GOPATH
+gopath
+
+# GoLand IDE
+.idea
+

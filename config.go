@@ -513,23 +513,6 @@ func loadConfig() (*config, []string, error) {
 
 	// Create the home directory if it doesn't already exist.
 	funcName := "loadConfig"
-	err = os.MkdirAll(defaultHomeDir, 0700)
-	if err != nil {
-		// Show a nicer error message if it's because a symlink is
-		// linked to a directory that does not exist (probably because
-		// it's not mounted).
-		if e, ok := err.(*os.PathError); ok && os.IsExist(err) {
-			if link, lerr := os.Readlink(e.Path); lerr == nil {
-				str := "is symlink %s -> %s mounted?"
-				err = fmt.Errorf(str, e.Path, link)
-			}
-		}
-
-		str := "%s: Failed to create home directory: %v"
-		err := fmt.Errorf(str, funcName, err)
-		fmt.Fprintln(os.Stderr, err)
-		return nil, nil, err
-	}
 
 	// Multiple networks can't be selected simultaneously.
 	numNets := 0
